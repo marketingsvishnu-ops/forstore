@@ -1,903 +1,249 @@
-```html
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-<title>LEVEL UP — Motivation Blog</title>
-
-<style>
-*{
-    margin:0;
-    padding:0;
-    box-sizing:border-box;
-}
-
-html{
-    scroll-behavior:smooth;
-}
-
-body{
-    font-family:Arial, Helvetica, sans-serif;
-    background:#07090d;
-    color:#fff;
-    overflow-x:hidden;
-}
-
-/* ===== BACKGROUND LIGHTS ===== */
-
-body::before,
-body::after{
-    content:"";
-    position:fixed;
-    width:450px;
-    height:450px;
-    border-radius:50%;
-    filter:blur(120px);
-    opacity:.25;
-    z-index:-2;
-}
-
-body::before{
-    background:#ff6a00;
-    top:-150px;
-    left:-150px;
-    animation:lightMove 8s infinite alternate;
-}
-
-body::after{
-    background:#6c2cff;
-    bottom:-180px;
-    right:-150px;
-    animation:lightMove 10s infinite alternate-reverse;
-}
-
-@keyframes lightMove{
-    from{transform:translate(0,0);}
-    to{transform:translate(150px,80px);}
-}
-
-/* ===== NAVBAR ===== */
-
-nav{
-    position:fixed;
-    top:0;
-    width:100%;
-    padding:22px 7%;
-    display:flex;
-    justify-content:space-between;
-    align-items:center;
-    z-index:1000;
-
-    background:rgba(7,9,13,.65);
-    backdrop-filter:blur(15px);
-    border-bottom:1px solid rgba(255,255,255,.08);
-}
-
-.logo{
-    font-size:27px;
-    font-weight:900;
-    letter-spacing:2px;
-}
-
-.logo span{
-    color:#ff7200;
-}
-
-nav ul{
-    display:flex;
-    gap:35px;
-    list-style:none;
-}
-
-nav a{
-    color:#bbb;
-    text-decoration:none;
-    transition:.3s;
-}
-
-nav a:hover{
-    color:#ff7200;
-}
-
-/* ===== HERO ===== */
-
-.hero{
-    min-height:100vh;
-    padding:150px 7% 100px;
-
-    display:flex;
-    align-items:center;
-
-    position:relative;
-}
-
-.hero-content{
-    max-width:900px;
-    position:relative;
-    z-index:2;
-}
-
-.badge{
-    display:inline-block;
-    padding:10px 20px;
-    border:1px solid rgba(255,115,0,.5);
-    border-radius:30px;
-    color:#ff8b32;
-    background:rgba(255,100,0,.08);
-    margin-bottom:30px;
-    font-size:14px;
-    letter-spacing:3px;
-}
-
-.hero h1{
-    font-size:clamp(65px,10vw,150px);
-    line-height:.88;
-    font-weight:1000;
-    letter-spacing:-6px;
-
-    text-shadow:
-        0 0 15px rgba(255,100,0,.2),
-        0 20px 50px rgba(0,0,0,.8);
-}
-
-.hero h1 span{
-    color:#ff7100;
-
-    text-shadow:
-        0 0 10px #ff7100,
-        0 0 40px rgba(255,100,0,.7);
-}
-
-.hero p{
-    max-width:700px;
-    color:#aaa;
-    font-size:21px;
-    margin:35px 0;
-    line-height:1.7;
-}
-
-.btn{
-    display:inline-block;
-    padding:18px 32px;
-    border-radius:12px;
-
-    background:linear-gradient(135deg,#ff8a00,#ff4d00);
-    color:#fff;
-    text-decoration:none;
-    font-weight:bold;
-
-    box-shadow:
-        0 10px 30px rgba(255,80,0,.3),
-        inset 0 1px rgba(255,255,255,.3);
-
-    transition:.3s;
-}
-
-.btn:hover{
-    transform:translateY(-5px) scale(1.03);
-    box-shadow:
-        0 20px 45px rgba(255,80,0,.5);
-}
-
-/* ===== 3D OBJECT ===== */
-
-.hero-object{
-    position:absolute;
-    right:8%;
-    top:25%;
-    width:360px;
-    height:360px;
-
-    transform-style:preserve-3d;
-    animation:rotateCube 12s linear infinite;
-}
-
-.cube{
-    width:250px;
-    height:250px;
-    position:absolute;
-    top:55px;
-    left:55px;
-
-    transform-style:preserve-3d;
-}
-
-.face{
-    position:absolute;
-    width:250px;
-    height:250px;
-
-    background:linear-gradient(
-        135deg,
-        rgba(255,120,0,.2),
-        rgba(100,40,255,.08)
-    );
-
-    border:1px solid rgba(255,130,30,.45);
-    box-shadow:
-        inset 0 0 40px rgba(255,100,0,.1),
-        0 0 50px rgba(255,80,0,.12);
-
-    backdrop-filter:blur(5px);
-}
-
-.front{transform:translateZ(125px);}
-.back{transform:rotateY(180deg) translateZ(125px);}
-.right{transform:rotateY(90deg) translateZ(125px);}
-.left{transform:rotateY(-90deg) translateZ(125px);}
-.top{transform:rotateX(90deg) translateZ(125px);}
-.bottom{transform:rotateX(-90deg) translateZ(125px);}
-
-@keyframes rotateCube{
-    from{transform:rotateX(-15deg) rotateY(0deg);}
-    to{transform:rotateX(345deg) rotateY(360deg);}
-}
-
-/* ===== MAIN ===== */
-
-.container{
-    width:86%;
-    max-width:1250px;
-    margin:auto;
-    padding:100px 0;
-}
-
-.section-label{
-    color:#ff7600;
-    letter-spacing:4px;
-    font-size:13px;
-    font-weight:bold;
-}
-
-.section-title{
-    font-size:55px;
-    margin:15px 0 50px;
-}
-
-/* ===== BLOG CARDS ===== */
-
-.posts{
-    display:grid;
-    grid-template-columns:repeat(3,1fr);
-    gap:30px;
-}
-
-.card{
-    min-height:430px;
-    padding:35px;
-
-    position:relative;
-    overflow:hidden;
-
-    background:
-        linear-gradient(
-            145deg,
-            rgba(255,255,255,.08),
-            rgba(255,255,255,.025)
-        );
-
-    border:1px solid rgba(255,255,255,.1);
-    border-radius:24px;
-
-    box-shadow:
-        0 25px 60px rgba(0,0,0,.4),
-        inset 0 1px rgba(255,255,255,.12);
-
-    transition:.5s;
-
-    transform-style:preserve-3d;
-}
-
-.card::before{
-    content:"";
-    position:absolute;
-    width:180px;
-    height:180px;
-    border-radius:50%;
-
-    background:#ff6500;
-    filter:blur(90px);
-    opacity:.15;
-
-    top:-70px;
-    right:-70px;
-}
-
-.card:hover{
-    transform:
-        perspective(1000px)
-        rotateX(5deg)
-        rotateY(-5deg)
-        translateY(-12px);
-
-    border-color:rgba(255,110,0,.5);
-
-    box-shadow:
-        0 35px 80px rgba(0,0,0,.6),
-        0 0 30px rgba(255,90,0,.1);
-}
-
-.icon{
-    width:70px;
-    height:70px;
-
-    display:flex;
-    justify-content:center;
-    align-items:center;
-
-    font-size:32px;
-
-    border-radius:18px;
-
-    background:linear-gradient(
-        135deg,
-        #ff8500,
-        #ff4300
-    );
-
-    box-shadow:
-        0 12px 30px rgba(255,80,0,.3);
-
-    margin-bottom:30px;
-}
-
-.card h2{
-    font-size:29px;
-    margin-bottom:18px;
-}
-
-.card p{
-    color:#999;
-    font-size:16px;
-    line-height:1.8;
-}
-
-.read{
-    position:absolute;
-    bottom:30px;
-    color:#ff7b17;
-    text-decoration:none;
-    font-weight:bold;
-}
-
-/* ===== FEATURE ===== */
-
-.feature{
-    margin-top:100px;
-    padding:70px;
-
-    border-radius:30px;
-
-    background:
-        linear-gradient(
-            120deg,
-            rgba(255,100,0,.13),
-            rgba(90,40,255,.08)
-        );
-
-    border:1px solid rgba(255,255,255,.1);
-
-    box-shadow:
-        0 30px 80px rgba(0,0,0,.5),
-        inset 0 1px rgba(255,255,255,.1);
-}
-
-.feature h2{
-    font-size:65px;
-    max-width:900px;
-    line-height:1.05;
-    margin:20px 0;
-}
-
-.feature p{
-    max-width:800px;
-    color:#aaa;
-    font-size:19px;
-}
-
-/* ===== QUOTE ===== */
-
-.quote{
-    text-align:center;
-    padding:130px 20px;
-
-    background:
-        radial-gradient(
-            circle at center,
-            rgba(255,100,0,.12),
-            transparent 55%
-        );
-}
-
-.quote-mark{
-    font-size:100px;
-    color:#ff7000;
-    line-height:.5;
-}
-
-.quote h2{
-    max-width:950px;
-    margin:30px auto;
-    font-size:clamp(35px,5vw,65px);
-    line-height:1.15;
-}
-
-.quote p{
-    color:#777;
-}
-
-/* ===== HABITS ===== */
-
-.habits{
-    display:grid;
-    grid-template-columns:repeat(4,1fr);
-    gap:20px;
-}
-
-.habit{
-    padding:30px;
-    border-radius:20px;
-
-    background:#0e1117;
-    border:1px solid #1d222b;
-
-    transition:.3s;
-}
-
-.habit:hover{
-    transform:translateY(-8px);
-    border-color:#ff7000;
-}
-
-.habit h3{
-    margin:15px 0 10px;
-}
-
-.habit p{
-    color:#777;
-    font-size:14px;
-}
-
-/* ===== NEWSLETTER ===== */
-
-.newsletter{
-    text-align:center;
-    padding:100px 20px;
-
-    background:
-        linear-gradient(
-            135deg,
-            #17100b,
-            #0b0d12
-        );
-
-    border-top:1px solid #222;
-    border-bottom:1px solid #222;
-}
-
-.newsletter h2{
-    font-size:50px;
-    margin-bottom:15px;
-}
-
-.newsletter p{
-    color:#888;
-    margin-bottom:30px;
-}
-
-.newsletter input{
-    width:330px;
-    max-width:85%;
-    padding:17px;
-
-    background:#11151c;
-    border:1px solid #333;
-    border-radius:10px;
-
-    color:white;
-    outline:none;
-}
-
-.newsletter button{
-    padding:17px 25px;
-    margin-left:8px;
-
-    border:none;
-    border-radius:10px;
-
-    background:#ff6d00;
-    color:white;
-
-    font-weight:bold;
-    cursor:pointer;
-}
-
-/* ===== FOOTER ===== */
-
-footer{
-    padding:50px 7%;
-    display:flex;
-    justify-content:space-between;
-    color:#666;
-}
-
-footer strong{
-    color:#fff;
-}
-
-/* ===== RESPONSIVE ===== */
-
-@media(max-width:900px){
-
-    .hero-object{
-        opacity:.2;
-        right:-100px;
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cricket Updates</title>
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: Arial, sans-serif;
     }
 
-    .posts{
-        grid-template-columns:1fr;
+    body {
+      background: #f4f6f8;
+      color: #222;
     }
 
-    .habits{
-        grid-template-columns:1fr 1fr;
+    header {
+      background: #075e3a;
+      color: white;
+      padding: 20px;
+      text-align: center;
     }
 
-    .feature{
-        padding:40px 25px;
+    header h1 {
+      font-size: 30px;
     }
 
-    .feature h2{
-        font-size:42px;
+    nav {
+      background: #043d27;
+      padding: 12px;
+      text-align: center;
     }
 
-    nav ul{
-        display:none;
-    }
-}
-
-@media(max-width:550px){
-
-    .hero h1{
-        letter-spacing:-3px;
+    nav a {
+      color: white;
+      text-decoration: none;
+      margin: 0 15px;
+      font-weight: bold;
     }
 
-    .habits{
-        grid-template-columns:1fr;
+    .container {
+      width: 90%;
+      max-width: 1100px;
+      margin: 30px auto;
     }
 
-    .newsletter button{
-        margin:10px 0 0;
+    .section-title {
+      margin-bottom: 15px;
+      color: #075e3a;
     }
 
-    footer{
-        flex-direction:column;
-        gap:15px;
+    .score-container {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 20px;
     }
-}
-</style>
+
+    .score-card {
+      background: white;
+      padding: 20px;
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    }
+
+    .live {
+      color: #d60000;
+      font-weight: bold;
+      margin-bottom: 10px;
+    }
+
+    .team {
+      display: flex;
+      justify-content: space-between;
+      padding: 10px 0;
+      border-bottom: 1px solid #ddd;
+      font-size: 18px;
+    }
+
+    .score {
+      font-weight: bold;
+    }
+
+    .status {
+      margin-top: 15px;
+      color: #555;
+    }
+
+    .news {
+      margin-top: 35px;
+    }
+
+    .news-list {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 20px;
+    }
+
+    .news-card {
+      background: white;
+      padding: 20px;
+      border-radius: 12px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.08);
+    }
+
+    .news-card h3 {
+      margin-bottom: 10px;
+      color: #075e3a;
+    }
+
+    .news-card p {
+      color: #555;
+      line-height: 1.5;
+    }
+
+    footer {
+      margin-top: 40px;
+      background: #043d27;
+      color: white;
+      text-align: center;
+      padding: 20px;
+    }
+  </style>
 </head>
 
 <body>
 
-<!-- NAVIGATION -->
+  <header>
+    <h1>🏏 Cricket Updates</h1>
+    <p>Live Scores • Match Updates • Cricket News</p>
+  </header>
 
-<nav>
+  <nav>
+    <a href="#">Home</a>
+    <a href="#">Live Scores</a>
+    <a href="#">Matches</a>
+    <a href="#">News</a>
+  </nav>
 
-    <div class="logo">
-        LEVEL<span>UP.</span>
-    </div>
+  <div class="container">
 
-    <ul>
-        <li><a href="#home">Home</a></li>
-        <li><a href="#articles">Articles</a></li>
-        <li><a href="#habits">Habits</a></li>
-        <li><a href="#quote">Mindset</a></li>
-    </ul>
+    <h2 class="section-title">🔴 Live Matches</h2>
 
-</nav>
+    <div class="score-container">
 
+      <div class="score-card">
+        <div class="live">● LIVE</div>
 
-<!-- HERO -->
-
-<section class="hero" id="home">
-
-    <div class="hero-content">
-
-        <div class="badge">
-            MINDSET • DISCIPLINE • SUCCESS
+        <div class="team">
+          <span>India 🇮🇳</span>
+          <span class="score">178/5</span>
         </div>
 
-        <h1>
-            BUILD<br>
-            <span>YOURSELF.</span>
-        </h1>
+        <div class="team">
+          <span>Australia 🇦🇺</span>
+          <span class="score">Yet to bat</span>
+        </div>
 
-        <p>
-            Stop waiting for motivation.
-            Build discipline, control your mindset,
-            and become the person you always wanted to be.
+        <p class="status">
+          India: 18.4 Overs<br>
+          India needs a strong finish!
         </p>
+      </div>
 
-        <a href="#articles" class="btn">
-            EXPLORE ARTICLES →
-        </a>
+      <div class="score-card">
+        <div class="live">● LIVE</div>
 
-    </div>
-
-
-    <!-- 3D CUBE -->
-
-    <div class="hero-object">
-
-        <div class="cube">
-
-            <div class="face front"></div>
-            <div class="face back"></div>
-            <div class="face right"></div>
-            <div class="face left"></div>
-            <div class="face top"></div>
-            <div class="face bottom"></div>
-
+        <div class="team">
+          <span>England 🏴</span>
+          <span class="score">142/3</span>
         </div>
 
-    </div>
-
-</section>
-
-
-<!-- ARTICLES -->
-
-<section class="container" id="articles">
-
-    <div class="section-label">
-        LATEST THINKING
-    </div>
-
-    <h2 class="section-title">
-        Upgrade Your <span style="color:#ff7000;">Mindset.</span>
-    </h2>
-
-
-    <div class="posts">
-
-        <article class="card">
-
-            <div class="icon">⚡</div>
-
-            <h2>
-                Motivation Is Not Enough
-            </h2>
-
-            <p>
-                Motivation can start the journey,
-                but discipline keeps you moving.
-                Learn how to build systems that work
-                even when you don't feel inspired.
-            </p>
-
-            <a href="#" class="read">
-                READ MORE →
-            </a>
-
-        </article>
-
-
-        <article class="card">
-
-            <div class="icon">🧠</div>
-
-            <h2>
-                Train Your Mind
-            </h2>
-
-            <p>
-                Your thoughts influence your actions.
-                Replace negative thinking with powerful
-                habits that help you focus on growth.
-            </p>
-
-            <a href="#" class="read">
-                READ MORE →
-            </a>
-
-        </article>
-
-
-        <article class="card">
-
-            <div class="icon">🔥</div>
-
-            <h2>
-                Become Relentless
-            </h2>
-
-            <p>
-                Failure is not the opposite of success.
-                It is part of the process.
-                Learn to keep going when things become difficult.
-            </p>
-
-            <a href="#" class="read">
-                READ MORE →
-            </a>
-
-        </article>
-
-    </div>
-
-
-    <!-- FEATURED ARTICLE -->
-
-    <div class="feature">
-
-        <div class="section-label">
-            FEATURED
+        <div class="team">
+          <span>Pakistan 🇵🇰</span>
+          <span class="score">Yet to bat</span>
         </div>
 
-        <h2>
-            Your Next Level
-            Requires a New You.
-        </h2>
-
-        <p>
-            You cannot create a different future by repeating
-            the same habits. Change what you do every morning,
-            change what you focus on, and change what you believe
-            you are capable of.
+        <p class="status">
+          England: 16.2 Overs<br>
+          Match in progress
         </p>
+      </div>
 
-    </div>
+      <div class="score-card">
+        <div class="live">● LIVE</div>
 
-</section>
-
-
-<!-- QUOTE -->
-
-<section class="quote" id="quote">
-
-    <div class="quote-mark">
-        “
-    </div>
-
-    <h2>
-        The person you will become tomorrow
-        is being created by what you do today.
-    </h2>
-
-    <p>
-        — LEVEL UP MINDSET
-    </p>
-
-</section>
-
-
-<!-- DAILY HABITS -->
-
-<section class="container" id="habits">
-
-    <div class="section-label">
-        DAILY SYSTEM
-    </div>
-
-    <h2 class="section-title">
-        Four Habits That <span style="color:#ff7000;">Change Everything.</span>
-    </h2>
-
-
-    <div class="habits">
-
-        <div class="habit">
-            <div>🌅</div>
-            <h3>Wake Up Early</h3>
-            <p>
-                Start your day before the world
-                starts demanding your attention.
-            </p>
+        <div class="team">
+          <span>South Africa 🇿🇦</span>
+          <span class="score">95/2</span>
         </div>
 
-
-        <div class="habit">
-            <div>📚</div>
-            <h3>Keep Learning</h3>
-            <p>
-                Read, practice and improve something
-                every single day.
-            </p>
+        <div class="team">
+          <span>New Zealand 🇳🇿</span>
+          <span class="score">Yet to bat</span>
         </div>
 
-
-        <div class="habit">
-            <div>🏋️</div>
-            <h3>Train Your Body</h3>
-            <p>
-                A stronger body can help build
-                a stronger mindset.
-            </p>
-        </div>
-
-
-        <div class="habit">
-            <div>🎯</div>
-            <h3>Focus</h3>
-            <p>
-                Remove distractions and give your
-                important goals your full attention.
-            </p>
-        </div>
+        <p class="status">
+          South Africa: 11.3 Overs<br>
+          Great start to the innings
+        </p>
+      </div>
 
     </div>
 
-</section>
+    <section class="news">
 
+      <h2 class="section-title">📰 Latest Cricket News</h2>
 
-<!-- NEWSLETTER -->
+      <div class="news-list">
 
-<section class="newsletter">
+        <div class="news-card">
+          <h3>India dominate with the bat</h3>
+          <p>
+            India put together a strong batting performance
+            and are looking to finish the innings with a big total.
+          </p>
+        </div>
 
-    <h2>
-        Stay Hungry. Stay Growing.
-    </h2>
+        <div class="news-card">
+          <h3>Exciting match underway</h3>
+          <p>
+            England and Pakistan are involved in a closely
+            contested match with both teams fighting for momentum.
+          </p>
+        </div>
 
-    <p>
-        Get one powerful motivational idea every week.
-    </p>
+        <div class="news-card">
+          <h3>Top players to watch</h3>
+          <p>
+            Keep an eye on the star batters and bowlers as
+            today's matches continue.
+          </p>
+        </div>
 
-    <input
-        type="email"
-        id="email"
-        placeholder="Your email address"
-    >
+      </div>
 
-    <button onclick="subscribe()">
-        JOIN NOW
-    </button>
+    </section>
 
-</section>
+  </div>
 
-
-<!-- FOOTER -->
-
-<footer>
-
-    <div>
-        <strong>LEVELUP.</strong>
-        — Build yourself.
-    </div>
-
-    <div>
-        © 2026 LEVEL UP
-    </div>
-
-</footer>
-
-
-<script>
-
-function subscribe(){
-
-    const email =
-        document.getElementById("email").value;
-
-    if(email === ""){
-
-        alert("Please enter your email.");
-
-    }else{
-
-        alert(
-            "Welcome to LEVEL UP! 🔥"
-        );
-
-        document.getElementById("email").value = "";
-
-    }
-
-}
-
-</script>
+  <footer>
+    <p>© 2026 Cricket Updates | All Rights Reserved</p>
+  </footer>
 
 </body>
 </html>
-```
